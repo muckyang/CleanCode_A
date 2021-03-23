@@ -9,7 +9,7 @@ public class Clean_20056_마법사상어와파이어볼 {
     static final int[] dx = {0, 1, 1, 1, 0, -1, -1, -1};
 
     static int N, M, K;
-    static HashMap<Integer, FireStack> hm;
+    static HashMap<Integer, Fire> hm;
     static Queue<Fire> q;
 
     static BufferedReader br;
@@ -18,16 +18,17 @@ public class Clean_20056_마법사상어와파이어볼 {
     public static class Fire {
         int y, x, m, s, d;
 
+        int fireCnt;
+        int direction;
+
         public Fire(int y, int x, int m, int s, int d) {
             this.y = y;
             this.x = x;
             this.m = m;
             this.s = s;
             this.d = d;
-        }
-
-        public Fire(FireStack fs) {
-            this(fs.y, fs.x, fs.m, fs.s, fs.d);
+            this.fireCnt = 1;
+            this.direction = d % 2;
         }
 
         public void move() {
@@ -48,20 +49,8 @@ public class Clean_20056_마법사상어와파이어볼 {
                 x = x * -1 + N;
             }
         }
-    }
 
-    public static class FireStack extends Fire {
-
-        int fireCnt;
-        int direction;
-
-        public FireStack(Fire f) {
-            super(f.y,f.x,f.m,f.s,f.d);
-            this.fireCnt = 1;
-            this.direction = f.d % 2;
-        }
-
-        public FireStack appendFire(Fire f) {
+        public Fire appendFire(Fire f) {
             this.m += f.m;
             this.s += f.s;
             this.fireCnt++;
@@ -119,33 +108,33 @@ public class Clean_20056_마법사상어와파이어볼 {
                 continue;
             f.move();
             int position = f.y * N + f.x;
-            FireStack stack = hm.get(position);
+            Fire fireStack = hm.get(position);
 
-            if (stack==null) {
-                hm.put(position, new FireStack(f));
+            if (fireStack==null) {
+                hm.put(position, f);
             } else {
-                hm.put(position, stack.appendFire(f));
+                hm.put(position, fireStack.appendFire(f));
             }
         }
     }
 
     private static void DivideAndAdd() {
         for (Integer i : hm.keySet()) {
-            FireStack fs = hm.get(i);
-            AddAndBoom(fs);
+            Fire fire = hm.get(i);
+            AddAndBoom(fire);
         }
     }
 
-    private static void AddAndBoom(FireStack fs) {
-        if (fs.fireCnt == 1) {
-            q.add(new Fire(fs));
+    private static void AddAndBoom(Fire fire) {
+        if (fire.fireCnt == 1) {
+            q.add(fire);
         } else {
-            int y= fs.y;
-            int x= fs.x;
-            int m= fs.m/5;
-            int s= fs.s/fs.fireCnt;
+            int y= fire.y;
+            int x= fire.x;
+            int m= fire.m/5;
+            int s= fire.s/fire.fireCnt;
 
-            if (fs.direction == -1) {
+            if (fire.direction == -1) {
                 for (int d = 1; d < 8; d += 2) {
                     q.add(new Fire(y, x, m , s, d));
                 }
