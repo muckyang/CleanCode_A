@@ -7,19 +7,17 @@ import java.util.StringTokenizer;
 
 //	19196KB , 172ms
 
-public class Main_03184_양 {
-    static final int [] mY = {1, 0, -1, 0};
-    static final int [] mX = {0, 1, 0, -1};
+public class Clean_03184_양 {
+    static final int[] mY = {1, 0, -1, 0};
+    static final int[] mX = {0, 1, 0, -1};
     static int R, C;
-    static char [][] yard;
-    static boolean [][] visited;
+    static char[][] yard;
+    static boolean[][] visited;
 
     static BufferedReader br;
     static StringTokenizer st;
     static Queue<Point> q;
-    static int AnswerSheepCnt, AnswerWolfCnt;
-    static int AreaSheepCnt, AreaWolfCnt;
-
+    static Count res;
 
     public static class Point {
         int y;
@@ -30,11 +28,23 @@ public class Main_03184_양 {
             this.x = x;
         }
     }
+    public static class Count {
+        int wolf;
+        int sheep;
+        public Count(int wolf, int sheep){
+            this.wolf = wolf;
+            this.sheep = sheep;
+        }
+
+    }
 
     public static void main(String[] args) throws IOException {
+
         initAndInput();
+
         BruteForce();
-        System.out.println(AnswerSheepCnt + " " + AnswerWolfCnt);
+
+        System.out.println(res.sheep + " " + res.wolf);
     }
 
 
@@ -44,9 +54,10 @@ public class Main_03184_양 {
 
         R = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
+
         yard = new char[R][C];
         visited = new boolean[R][C];
-        AnswerSheepCnt = AnswerWolfCnt = 0;
+        res = new Count(0,0);
 
         for (int r = 0; r < R; r++) {
             String yardLine = br.readLine();
@@ -61,56 +72,59 @@ public class Main_03184_양 {
             for (int c = 0; c < C; c++) {
                 if (!visited[r][c]) {
                     CountSheepWolf(r, c);
-                    SheepVSWolf();
+//                    SheepVSWolf();
                 }
             }
         }
     }
 
-    private static void SheepVSWolf() {
-        if(AreaWolfCnt < AreaSheepCnt)
-            AnswerSheepCnt += AreaSheepCnt;
+    private static void SheepVSWolf(Count count) {
+        if (count.wolf < count.sheep)
+            res.sheep += count.sheep;
         else
-            AnswerWolfCnt += AreaWolfCnt;
+            res.wolf += count.wolf;
     }
 
 
     public static void CountSheepWolf(int r, int c) {
         //init
-        AreaSheepCnt = AreaWolfCnt = 0;
+        Count areaCnt = new Count(0,0);
         q = new LinkedList<>();
 
         visited[r][c] = true;
-        q.add(new Point (r,c));
+        q.add(new Point(r, c));
 
         //start BFS
         while (!q.isEmpty()) {
             Point p = q.poll();
-            countSheepWolf(yard[p.y][p.x]) ;
+            char now = yard[p.y][p.x];
+
+            if(now == 'v')
+                areaCnt.wolf++;
+            if(now == 'o')
+                areaCnt.sheep++;
+
             for (int d = 0; d < 4; d++) {
                 int nextY = p.y + mY[d];
                 int nextX = p.x + mX[d];
                 if (!isSafe(nextY, nextX) || visited[nextY][nextX] || yard[nextY][nextX] == '#')
                     continue;
                 visited[nextY][nextX] = true;
-                q.add(new Point(nextY,nextX));
+                q.add(new Point(nextY, nextX));
             }
         }
+        SheepVSWolf(areaCnt);
     }
 
 
     public static boolean isSafe(int y, int x) {
-        if(y >= R || y < 0 || x >= C || x < 0) {
+        if (y >= R || y < 0 || x < 0 || C <= x) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
-    public static void countSheepWolf(char c){
-        if(c == 'v')
-            AreaWolfCnt++;
-        else if(c == 'o')
-            AreaSheepCnt++;
-    }
+
 
 }
