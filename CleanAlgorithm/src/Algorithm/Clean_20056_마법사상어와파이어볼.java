@@ -1,3 +1,5 @@
+package Algorithm;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -93,14 +95,14 @@ public class Clean_20056_마법사상어와파이어볼 {
         return Integer.parseInt(st.nextToken());
     }
 
-    public static void solve() {
+    private static void solve() {
         for (int k = 0; k < K; k++) {
             MoveFire();
             DivideAndAdd();
         }
     }
 
-    public static void MoveFire() {
+    private static void MoveFire() {
         hm = new HashMap<>();
         while (!q.isEmpty()) {
             Fire f = q.poll();
@@ -146,7 +148,7 @@ public class Clean_20056_마법사상어와파이어볼 {
         }
     }
 
-    public static void MessSumPrint() {
+    private static void MessSumPrint() {
         int MessSum = 0;
         while (!q.isEmpty()) {
             MessSum += q.poll().m;

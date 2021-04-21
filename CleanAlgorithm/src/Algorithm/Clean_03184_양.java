@@ -1,3 +1,5 @@
+package Algorithm;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,7 +8,6 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 //	19196KB , 172ms
-
 public class Clean_03184_양 {
     static final int[] mY = {1, 0, -1, 0};
     static final int[] mX = {0, 1, 0, -1};
@@ -19,7 +20,7 @@ public class Clean_03184_양 {
     static Queue<Point> q;
     static Count res;
 
-    public static class Point {
+    private static class Point {
         int y;
         int x;
 
@@ -28,10 +29,12 @@ public class Clean_03184_양 {
             this.x = x;
         }
     }
-    public static class Count {
+
+    private static class Count {
         int wolf;
         int sheep;
-        public Count(int wolf, int sheep){
+
+        public Count(int wolf, int sheep) {
             this.wolf = wolf;
             this.sheep = sheep;
         }
@@ -41,9 +44,7 @@ public class Clean_03184_양 {
     public static void main(String[] args) throws IOException {
 
         initAndInput();
-
         BruteForce();
-
         System.out.println(res.sheep + " " + res.wolf);
     }
 
@@ -57,7 +58,7 @@ public class Clean_03184_양 {
 
         yard = new char[R][C];
         visited = new boolean[R][C];
-        res = new Count(0,0);
+        res = new Count(0, 0);
 
         for (int r = 0; r < R; r++) {
             String yardLine = br.readLine();
@@ -67,7 +68,7 @@ public class Clean_03184_양 {
         }
     }
 
-    public static void BruteForce() {
+    private static void BruteForce() {
         for (int r = 0; r < R; r++) {
             for (int c = 0; c < C; c++) {
                 if (!visited[r][c]) {
@@ -86,9 +87,9 @@ public class Clean_03184_양 {
     }
 
 
-    public static void CountSheepWolf(int r, int c) {
+    private static void CountSheepWolf(int r, int c) {
         //init
-        Count areaCnt = new Count(0,0);
+        Count areaCnt = new Count(0, 0);
         q = new LinkedList<>();
 
         visited[r][c] = true;
@@ -99,9 +100,9 @@ public class Clean_03184_양 {
             Point p = q.poll();
             char now = yard[p.y][p.x];
 
-            if(now == 'v')
+            if (now == 'v')
                 areaCnt.wolf++;
-            if(now == 'o')
+            if (now == 'o')
                 areaCnt.sheep++;
 
             for (int d = 0; d < 4; d++) {
@@ -117,14 +118,13 @@ public class Clean_03184_양 {
     }
 
 
-    public static boolean isSafe(int y, int x) {
+    private static boolean isSafe(int y, int x) {
         if (y >= R || y < 0 || x < 0 || C <= x) {
             return false;
         } else {
             return true;
         }
     }
-
 
 
 }
