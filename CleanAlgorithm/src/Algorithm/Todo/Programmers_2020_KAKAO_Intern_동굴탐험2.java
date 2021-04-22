@@ -18,7 +18,7 @@ public class Programmers_2020_KAKAO_Intern_동굴탐험2 {
     static boolean[] isLocked;
     static Node[] nodes;
 
-    public static class Node {
+    private static class Node {
         int now;
         LinkedList<Node> link = new LinkedList<>();
 
@@ -27,7 +27,7 @@ public class Programmers_2020_KAKAO_Intern_동굴탐험2 {
         }
     }
 
-    public static boolean solution(int n, int[][] path, int[][] order) {
+    private static boolean solution(int n, int[][] path, int[][] order) {
         boolean answer = true;
         isLocked = new boolean[n];
         nodes = new Node[n];

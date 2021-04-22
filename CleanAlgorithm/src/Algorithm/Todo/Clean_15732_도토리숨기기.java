@@ -38,7 +38,7 @@ public class Clean_15732_도토리숨기기 {
         System.out.println(maxIndex);
     }
 
-    public static void init() throws IOException {
+    private static void init() throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         pq= new PriorityQueue<>();

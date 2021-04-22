@@ -31,7 +31,7 @@ public class Tree_후위순회 {
     }
 
 
-    public static void init() {
+    private static void init() {
         A.left = B;
         A.right = C;
         B.left = D;

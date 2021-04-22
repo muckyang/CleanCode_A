@@ -90,7 +90,6 @@ public class Clean_09079_동전게임 {
                     return false;
             }
         }
-
         return true;
     }
 }

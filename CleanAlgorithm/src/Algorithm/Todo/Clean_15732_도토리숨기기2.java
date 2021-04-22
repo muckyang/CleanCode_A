@@ -16,7 +16,7 @@ public class Clean_15732_도토리숨기기2 {
     static int min, max;
     static BufferedReader br;
 
-    public static class Dotori {
+    private static class Dotori {
         int start;
         int dist;
         int end;
@@ -42,7 +42,7 @@ public class Clean_15732_도토리숨기기2 {
         }
     }
 
-    public static void init() throws IOException {
+    private static void init() throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = StoI(st.nextToken());
@@ -61,7 +61,7 @@ public class Clean_15732_도토리숨기기2 {
         max = N;
     }
 
-    public static void solve(int now) {
+    private static void solve(int now) {
         if (visit[now])// end rule
             return;
         int next;
@@ -76,7 +76,7 @@ public class Clean_15732_도토리숨기기2 {
         solve(next);
     }
 
-    public static boolean canAll(int index) {
+    private static boolean canAll(int index) {
         int sum = 0;
         int localMax = 0;
         for (Dotori each : list) {
@@ -99,7 +99,7 @@ public class Clean_15732_도토리숨기기2 {
 
     }
 
-    public static int StoI(String s) {
+    private static int StoI(String s) {
         return Integer.parseInt(s);
     }
 }

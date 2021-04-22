@@ -17,7 +17,7 @@ public class Clean_20056_마법사상어와파이어볼 {
     static BufferedReader br;
     static StringTokenizer st;
 
-    public static class Fire {
+    private static class Fire {
         int y, x, m, s, d;
 
         int fireCnt;
@@ -106,13 +106,13 @@ public class Clean_20056_마법사상어와파이어볼 {
         hm = new HashMap<>();
         while (!q.isEmpty()) {
             Fire f = q.poll();
-            if(f.m == 0)
+            if (f.m == 0)
                 continue;
             f.move();
             int position = f.y * N + f.x;
             Fire fireStack = hm.get(position);
 
-            if (fireStack==null) {
+            if (fireStack == null) {
                 hm.put(position, f);
             } else {
                 hm.put(position, fireStack.appendFire(f));
@@ -131,18 +131,18 @@ public class Clean_20056_마법사상어와파이어볼 {
         if (fire.fireCnt == 1) {
             q.add(fire);
         } else {
-            int y= fire.y;
-            int x= fire.x;
-            int m= fire.m/5;
-            int s= fire.s/fire.fireCnt;
+            int y = fire.y;
+            int x = fire.x;
+            int m = fire.m / 5;
+            int s = fire.s / fire.fireCnt;
 
             if (fire.direction == -1) {
                 for (int d = 1; d < 8; d += 2) {
-                    q.add(new Fire(y, x, m , s, d));
+                    q.add(new Fire(y, x, m, s, d));
                 }
             } else {
                 for (int d = 0; d < 8; d += 2) {
-                    q.add(new Fire(y, x, m , s,d));
+                    q.add(new Fire(y, x, m, s, d));
                 }
             }
         }
