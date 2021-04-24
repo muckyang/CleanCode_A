@@ -1,4 +1,4 @@
-package Algorithm;
+package Algorithm.algo2021_04.part2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
